@@ -15,12 +15,19 @@ const aliments = [
 
 ]
 
+let daily = []
+let weekly = []
+let monthly = []
+let rarelyNever = []
+
+let counter = 0
+
 const r = document.querySelector(':root')
 
 const alimLength = aliments.length;
 let position = 0;
 
-let score = {Right: 0, Up: 0, Left: 0, Down: 0};
+let score = { Right: 0, Up: 0, Left: 0, Down: 0 };
 const dispScoreRight = document.getElementById("score-right")
 const dispScoreUp = document.getElementById("score-up")
 const dispScoreLeft = document.getElementById("score-left")
@@ -32,6 +39,20 @@ const updateScore = () => {
     dispScoreUp.innerText = score.Up;
     dispScoreLeft.innerText = score.Left;
     dispScoreDown.innerText = score.Down;
+}
+
+const dispDaily = document.getElementById("daily")
+const dispWeekly = document.getElementById("weekly")
+const dispMonthy = document.getElementById("monthly")
+const dispRarelyNever = document.getElementById("rarely-never")
+
+const updateResults = (frequency, dispFreq) => {
+        const lastAlim = frequency.length - 1;
+        console.log(lastAlim)
+        const element = document.createElement('p')
+        element.innerText = frequency[lastAlim].name
+        dispFreq.appendChild(element)
+
 }
 
 class Carousel {
@@ -183,10 +204,20 @@ class Carousel {
 
                 successful = true
                 console.log("swiped right")
-                
+
                 // increase score
                 score.Right++
                 
+                // insert aliment into the set frequency
+                daily.push(aliments[counter])
+                console.log('daily')
+                daily.forEach(element => console.log(element.name))
+                updateResults(daily, dispDaily)
+                // move to the next item in aliments list               
+                counter++
+
+
+
                 // get right border position
                 posX = this.board.clientWidth
 
@@ -194,10 +225,18 @@ class Carousel {
 
                 successful = true
                 console.log("swiped left")
-                
+
                 // increase score
                 score.Left++
-                
+
+                // insert aliment into the set frequency
+                monthly.push(aliments[counter])
+                console.log('monthly')
+                weekly.forEach(element => console.log(element.name))
+                updateResults(monthly, dispMonthy)
+                // move to the next item in aliments list               
+                counter++
+
                 // get left border position
                 posX = -(this.board.clientWidth + this.topCard.clientWidth)
 
@@ -205,10 +244,18 @@ class Carousel {
 
                 successful = true
                 console.log("swiped up")
-                
+
                 // increase score
                 score.Up++
-                
+
+                // insert aliment into the set frequency
+                weekly.push(aliments[counter])
+                console.log('weekly')
+                weekly.forEach(element => console.log(element.name))
+                updateResults(weekly, dispWeekly)
+                // move to the next item in aliments list               
+                counter++
+
                 // get top border position
                 posY = -(this.board.clientHeight + this.topCard.clientHeight)
 
@@ -216,18 +263,27 @@ class Carousel {
 
                 successful = true
                 console.log("swiped down")
-                
+
                 // increase score
                 score.Down++
-                
+
+                // insert aliment into the set frequency
+                rarelyNever.push(aliments[counter])
+                console.log('rarelyNever')
+                rarelyNever.forEach(element => console.log(element.name))
+                updateResults(rarelyNever, dispRarelyNever)
+                // move to the next item in aliments list               
+                counter++
+
                 // get bottom border position
                 posY = (this.board.clientHeight + this.topCard.clientHeight)
 
-            } 
+            }
 
             if (successful) {
 
                 updateScore()
+                
 
                 // throw card in the chosen direction
                 this.topCard.style.transform =
@@ -237,8 +293,12 @@ class Carousel {
                 setTimeout(() => {
                     // remove swiped card
                     this.board.removeChild(this.topCard)
-                    // add new card
-                    this.push()
+
+                    if (position < alimLength) {
+
+                        // add new card
+                        this.push()
+                    }
                     // handle gestures on new top card
                     this.handle()
                 }, 200)
@@ -264,17 +324,14 @@ class Carousel {
 
         // loop once through the array aliments
         let name = aliments[position].name;
-        console.log(name)
 
         let imgSrc = aliments[position].img;
-        console.log(imgSrc)
-        
-
 
         // change position value to cycle through all aliments
         let prevPos = position;
 
-        prevPos < alimLength - 1 ? position++ : position = 0;
+        position++
+
         console.log(position)
 
         // create the card content
@@ -288,7 +345,7 @@ class Carousel {
         card.classList.add('card')
 
         // set background gradient
-        card.style.background =`linear-gradient(25deg, ${aliments[prevPos].color01}, ${aliments[prevPos].color02})`
+        card.style.background = `linear-gradient(25deg, ${aliments[prevPos].color01}, ${aliments[prevPos].color02})`
 
 
         // append card into the board

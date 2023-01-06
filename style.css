@@ -72,6 +72,7 @@ body {
     justify-content: center;
     text-align: center;
     gap: 2rem;
+    z-index: 1;
 
     border-radius: 25px;
     border: solid .05rem rgba(255, 255, 255, 0.5);
@@ -106,11 +107,24 @@ body {
     color: #f0f0f0
 }
 
-/* Utility */
-.drop-shadow {
-    filter: drop-shadow(0 0.25rem 2px rgba(0, 0, 0, 0.18));
+.results {
+    position: absolute;
+    width: 100vw;
+    bottom: 0;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    color:rgb(228, 228, 228);
 }
 
+.results>* {
+    padding: 1rem;
+}
+
+.results p::before {
+    content: '• ';
+}
 .daily-text-color {
     color: #8DC0DC;
 }
@@ -125,4 +139,9 @@ body {
 
 .rarely-text-color {
     color: #E8B6B6;
+}
+
+/* Utility */
+.drop-shadow {
+    filter: drop-shadow(0 0.25rem 2px rgba(0, 0, 0, 0.18));
 }
