@@ -43,14 +43,15 @@ const aliments = [
     { id: '42', name: 'Fast Food', img: './assets/Picto42.png', color01: '#0C7E45', color02: '#C1AB7C' },
     { id: '43', name: 'Fruits de mer, mollusques', img: './assets/Picto43.png', color01: '#0C7E45', color02: '#C1AB7C' },
     { id: '44', name: 'Légumes secs (pois chiche, lentilles, haricots blans)', img: './assets/Picto44.png', color01: '#0C7E45', color02: '#C1AB7C' },
-    { id: '45', name: 'Légumes frais', img: './assets/Picto44.png', color01: '#0C7E45', color02: '#C1AB7C' }
-
+    { id: '45', name: 'Légumes frais', img: './assets/Picto45.png', color01: '#0C7E45', color02: '#C1AB7C' }
 ]
 
 let daily = []
 let weekly = []
 let monthly = []
 let rarelyNever = []
+
+
 
 let counter = 0
 
@@ -97,8 +98,7 @@ class Carousel {
         updateScore()
 
         // add first two cards programmatically
-        this.push()
-        this.push()
+        aliments.forEach(aliment => this.push())
 
         // handle gestures
         this.handle()
