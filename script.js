@@ -230,7 +230,7 @@ class Carousel {
             // set back transition properties
             this.topCard.style.transition = 'transform 200ms ease-out'
             if (this.nextCard) this.nextCard.style.transition = 'transform 100ms linear'
-
+            
             // check threshold and movement direction
             if (propX > 0.25 && e.direction == Hammer.DIRECTION_RIGHT) {
 
